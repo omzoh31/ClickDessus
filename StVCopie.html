@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>OlasWebsite</title>
+<style>
+body {
+    background: pink;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+}
+
+/* Carte initiale */
+#card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    width: 500px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+#card img {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 15px;
+}
+
+.message {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #e91e63;
+    animation: bounce 2s infinite;
+    font-weight: bold;
+    font-style: oblique;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(10px); }
+    50% { transform: translateY(-20px); }
+}
+
+button {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 40px 40px;
+    margin: 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#no {
+    background-color: yellow;
+    padding: 20px 20px;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    position: absolute;
+    transition: left 1s ease, top 1s ease;
+}
+
+/* GIF + message cachés au départ */
+#fireworks, #gifMessage {
+    display: none;
+}
+
+#fireworks {
+    width: 400px;
+    margin-top: 20px;
+}
+
+#gifMessage {
+    font-size: 28px;
+    color: #e91e63;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Effet fade-in */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<div id="card">
+    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTgxYTcybXUyOTQ4Y3pua3ltMnQycG1hem04aTljeWJvb2RjNWRkNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LBMiDWkCw0e53UOcm0/giphy.gif" alt="Joli chien">
+    <h2 class="message">Fine Girl, will you be my Valentine?</h2>
+
+    <button id="yesBtn">Yes</button>
+    <button id="no" onmouseover="dodge()">No</button>
+    <div class="hint" id="hint">N'ai pas peur de dire oui :)</div>
+</div>
+
+<!-- GIF et message séparés -->
+<img id="fireworks" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGZyMW9ka2c2azZ1OXVqeHMyeHRpanM5ZHZiOWIyMHRvcDljYWJxaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nXxOjZrbnbRxS/giphy.gif" alt="Fireworks">
+<div id="gifMessage">You made my day! ❤️</div>
+
+<script>
+function dodge() {
+    const card = document.getElementById('card');
+    const no = document.getElementById('no');
+
+    const cardWidth = card.offsetWidth;
+    const cardHeight = card.offsetHeight;
+
+    const btnWidth = no.offsetWidth;
+    const btnHeight = no.offsetHeight;
+
+    const maxX = cardWidth - btnWidth;
+    const maxY = cardHeight - btnHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    no.style.left = randomX + 'px';
+    no.style.top = randomY + 'px';
+}
+
+// Quand on clique sur Yes
+document.getElementById('yesBtn').addEventListener('click', () => {
+    const card = document.getElementById('card');
+    const gif = document.getElementById('fireworks');
+    const message = document.getElementById('gifMessage');
+
+    // Cacher tout le contenu de la carte
+    card.style.display = 'none';
+
+    // Afficher le GIF et le message
+    gif.style.display = 'block';
+    message.style.display = 'block';
+
+    // Ajouter fade-in
+    gif.classList.add('fade-in');
+    message.classList.add('fade-in');
+});
+</script>
+
+</body>
+</html>
